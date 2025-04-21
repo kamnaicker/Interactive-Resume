@@ -36,6 +36,9 @@ jobs:
 
       - run: npm run test:unit
         working-directory: resume-site
+
+      - run: npm run storybook:build
+        working-directory: resume-site
       
       - run: npm run test-storybook
         working-directory: resume-site      
