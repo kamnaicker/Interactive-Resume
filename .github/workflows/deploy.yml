@@ -10,25 +10,52 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ① Checkout source
-      - name: Checkout code
-        uses: actions/checkout@v4
+      # 1 · Checkout source
+      - uses: actions/checkout@v4
 
-      # ② Node.js (cache node_modules for speed)
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      # 2 · Node.js with NPM caching
+      - uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: npm
+          cache: npm                      # reuse ~/.npm across runs
 
-      # ③ Install & build
+      # 3 · Install deps (deterministic)
       - name: Install dependencies
-        run: npm ci                    # deterministic install
+        run: npm ci
+        working-directory: resume-site
 
-      - name: Build (SvelteKit → Cloudflare)
-        run: npm run build             # outputs to .svelte-kit/cloudflare
+      # 4 · Quality gates
+      
+      - name: Install Prettier
+        run: npx prettier --check .        
+        working-directory: resume-site
 
-      # ④ Deploy only from staging or main
+      - name: Install ESLint
+        run: npx eslint.
+        working-directory: resume-site
+
+      - name: Install TypeScript
+        run: npx eslint .
+        working-directory: resume-site
+
+      - run: npm run test:unit
+        working-directory: resume-site
+      
+      - run: npm run test-storybook
+        working-directory: resume-site
+      
+      - name: Install Playwright browsers      
+        run: npx playwright install --with-deps chromium
+        working-directory: resume-site
+      
+      - run: npm run test:e2e
+        working-directory: resume-site
+
+      # 5 · Build SvelteKit (adapter-cloudflare)
+      - run: npm run build           # outputs to .svelte-kit/cloudflare
+        working-directory: resume-site
+
+      # 6 · Deploy only from staging or main
       - name: Deploy to Cloudflare Pages
         if: github.ref_name == 'staging' || github.ref_name == 'main'
         uses: cloudflare/wrangler-action@v3
@@ -36,5 +63,5 @@ jobs:
           apiToken:  ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ vars.CF_ACCOUNT_ID }}
           command:   pages deploy .svelte-kit/cloudflare \
-                    --project-name interactive-resume \
-                    --branch ${{ github.ref_name }}
+                     --project-name interactive-resume \
+                     --branch ${{ github.ref_name }}
