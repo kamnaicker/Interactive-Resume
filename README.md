@@ -1,5 +1,7 @@
 # Interactive-Resume
- A modern single‑page app that showcases my résumé and projects with the same full‑stack techniques I use professionally.
+[![CI & Deploy Resume](https://github.com/kamnaicker/Interactive-Resume/actions/workflows/deploy.yml/badge.svg?branch=dev)](https://github.com/kamnaicker/Interactive-Resume/actions/workflows/deploy.yml)
+
+A modern single‑page app that showcases my résumé and projects with the same full‑stack techniques I use professionally.
 
 ## Licensing
 
