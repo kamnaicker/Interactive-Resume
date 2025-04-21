@@ -26,6 +26,10 @@ jobs:
         working-directory: resume-site
 
       # 4 · Quality gates
+      - name: Install Playwright browsers      
+        run: npx playwright install --with-deps chromium
+        working-directory: resume-site
+      
       - name: Check ESLint formatting & Check Prettier formatting
         run: npm run lint
         working-directory: resume-site
@@ -34,11 +38,7 @@ jobs:
         working-directory: resume-site
       
       - run: npm run test-storybook
-        working-directory: resume-site
-      
-      - name: Install Playwright browsers      
-        run: npx playwright install --with-deps chromium
-        working-directory: resume-site
+        working-directory: resume-site      
       
       - run: npm run test:e2e
         working-directory: resume-site
