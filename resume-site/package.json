@@ -17,7 +17,7 @@
 		"test:e2e": "playwright test",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
-		"test-storybook": "storybook test --coverage"
+		"test-storybook": "sb test --coverage"
 	},
 	"devDependencies": {
 		"@chromatic-com/storybook": "^3",
