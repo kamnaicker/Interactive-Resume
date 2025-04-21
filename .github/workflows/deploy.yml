@@ -26,17 +26,8 @@ jobs:
         working-directory: resume-site
 
       # 4 · Quality gates
-      
-      - name: Install Prettier
-        run: npx prettier --check .        
-        working-directory: resume-site
-
-      - name: Install ESLint
-        run: npx eslint.
-        working-directory: resume-site
-
-      - name: Install TypeScript
-        run: npx eslint .
+      - name: Check ESLint formatting & Check Prettier formatting
+        run: npm run lint
         working-directory: resume-site
 
       - run: npm run test:unit
@@ -63,6 +54,6 @@ jobs:
         with:
           apiToken:  ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ vars.CF_ACCOUNT_ID }}
-          command:   pages deploy .svelte-kit/cloudflare \
-                     --project-name interactive-resume \
-                     --branch ${{ github.ref_name }}
+          command: pages deploy resume-site/.svelte-kit/cloudflare \
+                  --project-name interactive-resume \
+                  --branch ${{ github.ref_name }}
