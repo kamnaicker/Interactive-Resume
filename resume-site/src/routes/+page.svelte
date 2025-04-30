@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Lightswitch from '$lib/components/Lightswitch.svelte';
-	import Card from '$lib/components/Card.svelte';
+	//import Card from '$lib/components/Card.svelte';
 	import ProfileHeader from '$lib/components/profile-header.svelte';
 	import KeyStats from '$lib/components/key-stats.svelte';
 

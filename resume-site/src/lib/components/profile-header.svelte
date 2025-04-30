@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ProfileHeaderProps } from '$lib/models/profileHeader';
+	//import type { ProfileHeaderProps } from '$lib/models/profileHeader';
 	import { Avatar } from '@skeletonlabs/skeleton-svelte';
 	import { Github, Linkedin, Mail } from '@lucide/svelte/icons';
 

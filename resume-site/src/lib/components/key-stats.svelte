@@ -70,10 +70,9 @@
 		};
 	});
 
-	// only run once, when visible & loaded
-	$: if (isVisible && !loading && !animated) {
+	function animateStats() {
+		// Set guard flag immediately to avoid re-run
 		animated = true;
-
 		stats.forEach((stat) => {
 			const duration = 2000;
 			const steps = 60;
@@ -84,10 +83,16 @@
 			const iv = setInterval(() => {
 				step++;
 				current = Math.min(step * increment, stat.value);
+				// Updating counts (creates a new object to trigger re-render)
 				counts = { ...counts, [stat.id]: Math.floor(current) };
 				if (step >= steps) clearInterval(iv);
 			}, duration / steps);
 		});
+	}
+
+	// Reactive statement triggers animation only once when visible and loaded.
+	$: if (isVisible && !loading && !animated) {
+		animateStats();
 	}
 </script>
 
