@@ -1,5 +1,4 @@
 <script lang="ts">
 </script>
 
-<div class="max-w-4xl mx-auto">
-</div>
+<div class="mx-auto max-w-4xl"></div>
